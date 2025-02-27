@@ -1,0 +1,42 @@
+-- Create the database
+CREATE DATABASE hotel_reservation;
+
+-- Connect to the database
+\c hotel_reservation;
+
+-- Create the rooms table
+CREATE TABLE IF NOT EXISTS rooms (
+  id SERIAL PRIMARY KEY,
+  room_number VARCHAR(10) NOT NULL,
+  floor INTEGER NOT NULL,
+  is_booked BOOLEAN DEFAULT FALSE,
+  is_available BOOLEAN DEFAULT FALSE
+);
+
+-- Add Contraints
+ALTER TABLE rooms
+ADD CONSTRAINT valid_floor CHECK (floor BETWEEN 1 AND 10),
+ADD CONSTRAINT valid_position CHECK (
+    (floor = 10 AND position BETWEEN 1 AND 7) OR (floor != 10 AND position BETWEEN 1 AND 10)
+);
+
+-- Create the bookings table
+CREATE TABLE IF NOT EXISTS bookings (
+  id SERIAL PRIMARY KEY,
+  room_id INTEGER REFERENCES rooms(id),
+  booking_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- insert room data for all floors
+INSERT INTO rooms (room_number, floor, is_booked)
+SELECT 
+    CASE 
+        WHEN floor = 10 THEN '10' || LPAD(position::text, 2, '0')
+        ELSE floor::text || LPAD(position::text, 2, '0')
+    END AS room_number,
+    floor,
+    FALSE AS is_booked
+FROM generate_series(1, 10) AS floor
+CROSS JOIN generate_series(1, 
+    CASE WHEN floor = 10 THEN 7 ELSE 10 END
+) AS position;
