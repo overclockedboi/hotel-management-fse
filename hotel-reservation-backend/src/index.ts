@@ -12,10 +12,19 @@ const config: Config = new Config().load();
 const createApp = async () => {
   const app = express();
   const { roomController } = await new Builder(config, null).buildApp();
-  app.use(cors());
+  // const allowedOrigins = [
+  //   'http://localhost:4200',
+  //   'https://ideal-space-guacamole-jqvrpxr44q5f5q7x-3000.app.github.dev',
+  //   'https://ideal-space-guacamole-jqvrpxr44q5f5q7x-4200.app.github.dev'
+  // ];
+ 
   app.use(express.json());
   app.use(requestLogger);
-
+  app.use(cors({
+    origin:"https://ideal-space-guacamole-jqvrpxr44q5f5q7x-4200.app.github.dev",
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    allowedHeaders: ['Content-Type', 'Authorization']
+  }));
   app.use('/api', new Routes(roomController).load());
 
   app.get('/health', (_req, res) => {

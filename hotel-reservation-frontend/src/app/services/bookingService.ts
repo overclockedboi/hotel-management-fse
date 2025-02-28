@@ -1,13 +1,26 @@
+import { environment } from "../../enviroments/enviroment";
+import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 
+@Injectable(
+    {
+        providedIn: 'root'
+    }
+)
 export class BookingService {
+    constructor(private http: HttpClient) { }
 
     async getRooms() {
-        const response = await fetch('https://cuddly-waddle-vq9pjxppxg6fq4j-3000.app.github.dev/api/rooms');
-        return await response.json();
+        const response = this.http.get(`${environment.apiUrl}/rooms`).subscribe(
+            (data) => {
+                return data;
+            }
+        );
+        return response
     }
 
     async getBookings() {
-        const response = await fetch('https://cuddly-waddle-vq9pjxppxg6fq4j-3000.app.github.dev/api/bookings');
-        return await response.json();
+        const response =this.http.get(`${environment.apiUrl}/api/bookings`);
+        return response;
     }
 }

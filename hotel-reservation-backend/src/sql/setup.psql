@@ -13,13 +13,6 @@ CREATE TABLE IF NOT EXISTS rooms (
   is_available BOOLEAN DEFAULT FALSE
 );
 
--- Add Contraints
-ALTER TABLE rooms
-ADD CONSTRAINT valid_floor CHECK (floor BETWEEN 1 AND 10),
-ADD CONSTRAINT valid_position CHECK (
-    (floor = 10 AND position BETWEEN 1 AND 7) OR (floor != 10 AND position BETWEEN 1 AND 10)
-);
-
 -- Create the bookings table
 CREATE TABLE IF NOT EXISTS bookings (
   id SERIAL PRIMARY KEY,
