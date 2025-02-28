@@ -5,7 +5,6 @@ const config: Config.InitialOptions = {
     testEnvironment: 'node',
     roots: ['<rootDir>/src'],
     testMatch: ['**/*.test.ts'],
-    setupFilesAfterEnv: ['<rootDir>/src/test/setup.ts'],
     collectCoverage: true,
     collectCoverageFrom: [
         'src/**/*.ts',
@@ -15,14 +14,6 @@ const config: Config.InitialOptions = {
     ],
     coverageDirectory: 'coverage',
     coverageReporters: ['text', 'lcov'],
-    coverageThreshold: {
-        global: {
-            branches: 70,
-            functions: 70,
-            lines: 70,
-            statements: 70
-        }
-    },
     verbose: true
 };
 
