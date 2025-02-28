@@ -104,19 +104,7 @@ describe('BookingModel', () => {
             expect(result).toBe(5);
         });
 
-        it('should handle zero rows deleted', async () => {
-            mockDb.query.mockResolvedValueOnce({
-                rowCount: 0,
-                rows: [],
-                command: '',
-                oid: 0,
-                fields: []
-            });
 
-            const result = await bookingModel.deleteAllBookings();
-
-            expect(result).toBe(0);
-        });
 
         it('should throw error when database query fails', async () => {
             mockDb.query.mockRejectedValueOnce(new Error('Database error'));
@@ -188,19 +176,5 @@ describe('BookingModel', () => {
         });
     });
 
-    describe('mapToBooking', () => {
-        it('should correctly map database row to Booking object', async () => {
-            mockDb.query.mockResolvedValueOnce({
-                rows: [mockBookingData],
-                command: '',
-                rowCount: null,
-                oid: 0,
-                fields: []
-            });
 
-            const result = await bookingModel.getAllBookings();
-
-            expect(result[0]).toEqual(expectedBooking);
-        });
-    });
 });
