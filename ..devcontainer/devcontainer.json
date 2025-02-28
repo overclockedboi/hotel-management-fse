@@ -1,0 +1,18 @@
+{
+    "name": "Node.js & PostgreSQL",
+    "dockerComposeFile": "docker-compose.yml",
+    "service": "app",
+    "workspaceFolder": "/workspace",
+    "settings": {
+      "terminal.integrated.shell.linux": "/bin/bash"
+    },
+    "extensions": [
+      "dbaeumer.vscode-eslint",
+      "mtxr.sqltools",
+      "mtxr.sqltools-driver-pg"
+    ],
+    "forwardPorts": [3000, 5432],
+    "postCreateCommand": "npm install",
+    "remoteUser": "node"
+  }
+  
