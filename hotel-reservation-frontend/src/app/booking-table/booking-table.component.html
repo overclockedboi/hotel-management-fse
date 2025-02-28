@@ -1,0 +1,64 @@
+<!-- room-grid.component.html -->
+<div class="flex flex-row w-full h-full">
+    <!-- Stairs/left column section -->
+    <div class="relative rounded-lg  border-2 border-gray-100 overflow-hidden w-38 h-full">
+        <ng-container *ngFor="let floor of floors.reverse(); let i = index">
+            <!-- Stairs section for each floor -->
+            <div class="absolute w-full " [style.bottom]="(i * 10) + '%'">
+                <div class="border-t border-gray-200 pt-1 w-full flex justify-between px-4"
+                    [style.bottom]="(i * 10) + '%'">
+                    <!-- Stairs -->
+                    <ng-container *ngFor="let position of ['left', 'right']">
+                        <div class="border-l-2 border-r-2 border-gray-400 h-8 w-16 relative">
+                            <div class="absolute w-full h-full flex flex-col justify-between ">
+                                <div *ngFor="let step of [1,2,3,4,5]" class="border-3" [ngClass]="{
+                                        'border-gray-300': position === 'left' || step % 2 == 0,
+                                        'border-gray-200': position === 'right' && step % 2 != 0
+                                    }" [style.top]="(step * 20) + '%'">
+                                </div>
+                            </div>
+                        </div>
+                    </ng-container>
+
+                    <!-- Lift section -->
+                    <div class="ml-3 relative">
+                        <div class="border  absolute top-2 border-gray-400 h-8 w-5 relative bg-gray-200">
+                            <!-- Lift doors -->
+                            <div class="absolute inset-0 flex">
+                                <div class="w-1/2 h-full border-r border-gray-400"></div>
+                                <div class="w-1/2 h-full"></div>
+                            </div>
+                            <!-- Lift way -->
+                            <div class="absolute -top-4 -bottom-6 -left-1 border-r border-gray-400"></div>
+                            <div class="absolute -top-4 -bottom-6 -right-1 border-l border-gray-400"></div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Floor number -->
+                <div class="text-start ml-4 text-sm font-medium text-gray-600 mt-1 ">
+                    Floor {{floor}}
+                </div>
+            </div>
+
+        </ng-container>
+    </div>
+
+    <!-- Room table section -->
+    <div class="ml-1 w-full">
+        <table class="w-full border-collapse">
+            <tbody>
+                <tr *ngFor="let floor of floors.reverse(); let i = index">
+                    <td *ngFor="let i of [1,2,3,4,5,6,7,8,9,0]" class="p-1">
+                        <div *ngIf="getRoomAt(floor, i)" class="rounded-xl p-4 flex items-center justify-center text-xs"
+                            [ngClass]="getRoomAt(floor, i).isBooked ? 'bg-red-100' : 'bg-white'">
+                            {{ getRoomAt(floor, i).roomNumber }}
+                        </div>
+                        <div *ngIf="!getRoomAt(floor, i)"
+                            class="rounded-xl p-4 flex items-center justify-center text-xs bg-gray-100">
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
