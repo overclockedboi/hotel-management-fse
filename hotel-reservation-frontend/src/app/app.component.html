@@ -1,46 +1,83 @@
-<div class="bg-gray-50 py-4 sm:py-2">
-  <div class="mx-auto max-w-2xl px-6 lg:max-w-7xl lg:px-8">
-    <h2 class="text-center text-base/7 font-semibold text-indigo-600">Hotel Reservation</h2>
-    <p class="mx-auto mt-2 max-w-lg text-center text-4xl font-semibold tracking-tight text-balance text-gray-950
-      sm:text-5xl">
-      Book Your Stay
-    </p>
-    <div class="mt-15 grid gap-4 sm:mt-10 lg:grid-cols-3 lg:grid-rows-2">
-      <div class="relative col-span-2 lg:row-span-2">
-        <div class="absolute inset-px rounded-lg bg-white lg:rounded-l-[2rem]"></div>
-        <div class="relative flex p-4 items-center justify-center
-          h-full flex-col overflow-hidden rounded-[calc(var(--radius-lg)+1px)] lg:rounded-l-[calc(2rem+1px)]">
+<div class="bg-gray-50 sm:h-100  lg:h-[100vh] py-4 sm:py-2">
+  <div class="mx-2  lg:mx-auto max-w-2xl px-0 lg:max-w-7xl lg:px-8">
 
-          <app-booking-table style="width: -webkit-fill-available;"></app-booking-table>
+    <div class="mt-15 grid gap-4 sm:mt-10   lg:grid-cols-3  ">
+      <div class="relative min-w-full col-span-2 lg:row-span-2">
+        <div class="absolute inset-px rounded-lg bg-white lg:rounded-l-[2rem]"></div>
+        <div class="relative p-4  h-full rounded-[calc(var(--radius-lg)+1px)] lg:rounded-l-[calc(2rem+1px)]">
+
+          <app-booking-table [rooms]="rooms" style="width: 100%;"></app-booking-table>
+
         </div>
         <div class="pointer-events-none absolute inset-px rounded-lg ring-1 shadow-sm ring-black/5 lg:rounded-l-[2rem]">
         </div>
       </div>
 
-      <div class="relative lg:row-span-2">
+      <div class="relative lg:mb-0 mb-5  lg:row-span-2">
         <div class="absolute inset-px rounded-lg bg-white max-lg:rounded-b-[2rem] lg:rounded-r-[2rem]"></div>
         <div
-          class="relative flex h-full flex-col overflow-hidden rounded-[calc(var(--radius-lg)+1px)] max-lg:rounded-b-[calc(2rem+1px)] lg:rounded-r-[calc(2rem+1px)]">
+          class="relative min-w-auto lg:min-w-auto  flex h-full flex-col overflow-hidden rounded-[calc(var(--radius-lg)+1px)] max-lg:rounded-b-[calc(2rem+1px)] lg:rounded-r-[calc(2rem+1px)]">
           <div class="px-8 pt-8 pb-3 sm:px-10 sm:pt-10 sm:pb-0">
-            <p class="mt-2 text-lg font-medium tracking-tight text-gray-950 max-lg:text-center">Avaiable Rooms</p>
-            <button
-              class="inline-flex items-center gap-1 rounded-full bg-blue-100/2 px-2 py-1 outline -outline-offset-1 outline-gray-950/8 ">View
-              All</button>
-          </div>
-          <div class="relative min-h-[30rem] w-full grow">
-            <div class="absolute top-10 right-0 bottom-0 left-10 overflow-hidden rounded-tl-xl bg-gray-900 shadow-2xl">
-              <div class="flex bg-gray-800/40 ring-1 ring-white/5">
-                <div class="-mb-px flex text-sm/6 font-medium text-gray-400">
-                  <div class="border-r border-b border-r-white/10 border-b-white/20 bg-white/5 px-4 py-2 text-white">
-                    NotificationSetting.jsx</div>
-                  <div class="border-r border-gray-600/10 px-4 py-2">App.jsx</div>
-                </div>
-              </div>
-              <div class="px-6 pt-6 pb-14">
-                <!-- Your code example -->
-              </div>
+            <div draggable="true" role="button" title="Hover chip"
+              class="h-8 px-3 w-max flex gap-2 items-center rounded-full border border-gray-100 text-gray-700 focus:bg-gray-300 focus:text-blue-900 active:text-yellow-500 active:bg-yellow-50 active:border-yellow-100 disabled:bg-gray-100 disabled:text-gray-400 ">
+              <span class="block text-sm font-medium">Avaiable Rooms</span>
+              <i class="fas fa-bed"></i>
+              <span class="block text-sm font-medium">{{available}}</span>
             </div>
+            <div draggable="true" role="button" title="Hover chip"
+              class="h-8 px-3 mt-5 w-max flex gap-2 items-center rounded-full border border-gray-100 text-gray-700 focus:bg-gray-300 focus:text-blue-900 active:text-yellow-500 active:bg-yellow-50 active:border-yellow-100 disabled:bg-gray-100 disabled:text-gray-400">
+              <span class="block text-sm font-medium">Booked Rooms</span>
+              <i class="fas fa-bell-concierge"></i>
+              <span class="block text-sm font-medium">{{booked}}</span>
+            </div>
+
+            <div class="relative  flex items-center w-[290px] mt-5">
+              <button type="button" (click)="setBooked(tobeBooked-1)" [disabled]="tobeBooked<=0"
+                class="bg-red-100  hover:bg-red-200 disabled:bg-gray-200 outline-none border border-gray-300 rounded-l-lg p-3 h-11 transition-all duration-200 transform hover:-translate-y-1  active:translate-y-0 focus:outline-none">
+                <i class="fas fa-minus text-gray-900  "></i>
+              </button>
+
+              <span type="text"
+                class="bg-gray-50 border h-11 border-x-0 border-gray-300 outline-none font-medium text-center text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 block w-full "
+                placeholder="">{{tobeBooked}}</span>
+
+              <div
+                class="absolute bottom-3 left-1/3 transform -translate-x-1/2 flex items-center text-xs text-gray-400 space-x-1 rtl:space-x-reverse">
+                <i class="fas fa-bed"></i>
+                <span>Bedrooms</span>
+              </div>
+
+              <button type="button" (click)="setBooked(tobeBooked+1)"
+                class="bg-white border border-gray-300 rounded-r-lg p-3 h-11 transition-all duration-200 transform hover:-translate-y-1  active:translate-y-0 focus:outline-none">
+                <i class="fas fa-plus text-gray-900"></i>
+              </button>
+              <button type="submit" onmousedown="party.confetti(this)" (click)="bookRoom()" [disabled]="tobeBooked<=0"
+                class="bg-gray-200 shadow-inner shadow-white disabled:bg-gray-300  disabled:transition-none flex text-gray-900 ml-2 border border-gray-300 h-11 mt-2 font-medium rounded-lg text-sm px-5 items-center me-2 mb-2 transition-all duration-200 transform hover:-translate-y-1 hover:shadow-inner hover:bg-gray-200 active:shadow-inner active:translate-y-0 focus:outline-none">
+                <i class="fas fas fa-receipt me-2"></i>Book</button>
+
+            </div>
+
+            <div class="mt-5">
+              <button
+                class="bg-gray-200 shadow-inner shadow-white text-gray-900 border border-gray-300 h-11 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 transition-all duration-200 transform hover:-translate-y-1 hover:shadow-inner hover:bg-gray-100 active:shadow-inner active:translate-y-0 focus:outline-none"
+                (click)="reset()">
+                <i class="fas fa-redo-alt me-2"></i>Reset</button>
+              <button
+                class="bg-gray-200 shadow-inner shadow-white text-gray-900 border border-gray-300 h-11 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 transition-all duration-200 transform hover:-translate-y-1 hover:shadow-inner hover:bg-gray-100 active:shadow-inner active:translate-y-0 focus:outline-none"
+                (click)="random()">
+                <i class="fas fa-random me-2"></i>Random</button>
+              <h2 class="text-center lg:absolute text-end bottom-10 right-5 text-base/7 font-semibold text-indigo-600">
+                Hotel
+                Reservation</h2>
+              <p class="mx-auto  lg:absolute text-end bottom-4 right-5   max-w-lg text-center text-2xl font-semibold tracking-tight text-balance text-gray-950
+                  lg:text-3xl">
+                Book Your Stay
+              </p>
+            </div>
+
+
           </div>
+
         </div>
         <div
           class="pointer-events-none absolute inset-px rounded-lg ring-1 shadow-sm ring-black/5 max-lg:rounded-b-[2rem] lg:rounded-r-[2rem]">

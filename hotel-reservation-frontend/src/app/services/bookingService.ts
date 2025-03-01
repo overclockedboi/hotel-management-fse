@@ -8,6 +8,9 @@ export interface Room {
     number: string;
     type: string;
     price: number;
+    floor: number;
+    isAvailable: boolean;
+    isBooked: boolean;
 }
 
 export interface Booking {
@@ -19,10 +22,7 @@ export interface Booking {
 }
 
 export interface CreateBookingDto {
-    roomId: number;
-    checkIn: Date;
-    checkOut: Date;
-    guestName: string;
+    numberOfRooms: number;
 }
 
 @Injectable({
@@ -63,8 +63,12 @@ export class BookingService {
             .pipe(catchError(this.handleError));
     }
 
-    deleteBooking(id: number): Observable<void> {
-        return this.http.delete<void>(`${this.apiUrl}/api/bookings/${id}`)
+    reset(): Observable<ArrayBuffer> {
+        return this.http.post<ArrayBuffer>(`${this.apiUrl}/api/reset`, null)
+            .pipe(catchError(this.handleError));
+    }
+    random(): Observable<ArrayBuffer> {
+        return this.http.post<ArrayBuffer>(`${this.apiUrl}/api/randomize`, null)
             .pipe(catchError(this.handleError));
     }
 }
