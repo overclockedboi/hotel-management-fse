@@ -1,7 +1,8 @@
 <!-- room-grid.component.html -->
 <div class="flex flex-row w-full h-full">
     <!-- Stairs/left column section -->
-    <div class="relative rounded-lg border-2 border-gray-100 overflow-hidden" style="width: 110px; min-width: 110px;">
+    <div class="relative bg-white shadow-lg rounded-l-2xl rounded-r-lg border-2 border-gray-100 overflow-hidden"
+        style="width: 110px; min-width: 110px;">
         <ng-container *ngFor="let floor of floors ; let i = index">
             <!-- Stairs section for each floor -->
             <div class="absolute w-28" [style.bottom]="(i * 10) + '%'">
@@ -49,20 +50,20 @@
                 <tr *ngFor="let floor of floors.reverse(); let i = index">
                     <td *ngFor="let i of [1,2,3,4,5,6,7,8,9,0]" class="p-1">
                         <div *ngIf="getRoomAt(floor, i)"
-                            class="rounded-xl border border-gray-100 p-4 flex flex-col items-center justify-center text-xs group relative transition-all duration-200 hover:scale-110 hover:z-10"
-                            [ngClass]="getRoomAt(floor, i).isBooked ? 'bg-gray-200 font-semibold shadow-inner shadow-white' : 'bg-white'">
+                            class="rounded-xl border  border-gray-100 p-4 flex flex-col items-center justify-center text-xs group relative transition-all duration-200 hover:scale-110 hover:z-10"
+                            [ngClass]="getRoomAt(floor, i).isBooked ? 'bg-gray-200 font-semibold border-gray-200 shadow-none' : 'bg-white shadow-lg'">
                             {{ getRoomAt(floor, i).roomNumber }}
                             <!-- Hover tooltip -->
                             <div
-                                class="hidden group-hover:block absolute bottom-full right bg-white border border-gray-200 rounded-lg p-2 shadow-lg w-48 mb-2">
-                                <p class="font-medium">Room: {{getRoomAt(floor, i).roomNumber}}</p>
+                                class="hidden group-hover:block absolute  bg-white border border-gray-200 rounded-lg p-2 shadow-lg w-20 mb-2">
+                                <p class="font-medium">{{getRoomAt(floor, i).roomNumber}}</p>
                                 <p>Floor: {{getRoomAt(floor, i).floor}}</p>
-                                <p>Status: {{getRoomAt(floor, i).isBooked ? 'Booked' : 'Available'}}</p>
+                                <p> {{getRoomAt(floor, i).isBooked ? 'Booked' : 'Available'}}</p>
 
                             </div>
                         </div>
                         <div *ngIf="!getRoomAt(floor, i)"
-                            class="rounded-xl p-4 flex items-center justify-center text-xs bg-gray-100">
+                            class="rounded-xl p-4 flex items-center justify-center text-xs bg-gray-400">
                         </div>
                     </td>
                 </tr>

@@ -43,8 +43,7 @@ export class RoomService {
         try {
 
             /**
-             * ! logic explainations:
-             * - reset all bookings
+             * ! logic explainations: 
              * - get all rooms
              * - calculate number of rooms to book (random)
              * - shuffle rooms
@@ -52,8 +51,7 @@ export class RoomService {
              * - create bookings transaction
              * - return booked rooms
              */
-            await this.resetAllBookings();
-            const allRooms = await this.roomModel.getAllRooms();
+            const allRooms = (await this.roomModel.getAllRooms()).filter(room => !room.isBooked);
             const roomsToBook = Math.floor(allRooms.length * Math.random());
             logger.debug(`Randomly booking ${roomsToBook} out of ${allRooms.length} rooms`);
             const shuffledRooms = this.shuffleArray([...allRooms]);

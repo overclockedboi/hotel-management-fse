@@ -23,7 +23,7 @@ export class AppComponent {
 
 
   setBooked(event: any) {
-    if (event >= 0 && event < 6) {
+    if (event >= 0 && event < 6 && this.available >= event) {
 
       this.tobeBooked = event;
     }
