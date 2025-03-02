@@ -11,6 +11,13 @@
     ],
     "routes": [
         {
+            "src": "/(.*)\\.js",
+            "headers": {
+                "Content-Type": "application/javascript"
+            },
+            "dest": "/dist/hotel-reservation/browser/$1.js"
+        },
+        {
             "src": "/(.*)",
             "dest": "/index.html"
         }
