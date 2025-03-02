@@ -8,7 +8,7 @@ export class Config {
     database!: string;
     env!: string;
     load() {
-        this.user = process.env.DB_USER || 'admin';
+        this.user = process.env.DB_USER || 'postgres';
         this.password = process.env.DB_PASSWORD || 'admin123';
         this.host = process.env.DB_HOST || 'localhost';
         this.dbPort = parseInt(process.env.DB_PORT || '5432', 10);

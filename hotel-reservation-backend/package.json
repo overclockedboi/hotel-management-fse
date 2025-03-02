@@ -4,7 +4,8 @@
   "description": "Hotel reservation backend service that runs on AWS Lambda",
   "main": "dist/index.js",
   "scripts": {
-    "build": "tsc",
+    "build": "webpack",
+    "build:prod": "webpack --mode production",
     "start": "node dist/index.js",
     "dev": "ts-node-dev --respawn src/index.ts",
     "test": "jest",
@@ -28,7 +29,7 @@
     "cors": "^2.8.5",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
-    "pg": "^8.9.0",
+    "pg": "^8.13.3",
     "pg-pool": "^3.5.2",
     "winston": "^3.17.0"
   },
@@ -48,7 +49,11 @@
     "serverless-offline": "^12.0.4",
     "serverless-plugin-typescript": "^2.1.4",
     "ts-jest": "^29.0.5",
+    "ts-loader": "^9.5.2",
     "ts-node-dev": "^2.0.0",
-    "typescript": "^4.9.5"
+    "typescript": "^4.9.5",
+    "webpack": "^5.98.0",
+    "webpack-cli": "^6.0.1",
+    "webpack-node-externals": "^3.0.0"
   }
 }

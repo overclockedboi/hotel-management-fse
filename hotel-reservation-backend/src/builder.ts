@@ -23,7 +23,8 @@ export class Builder {
             port: this.config.dbPort,
             database: this.config.database,
             user: this.config.user,
-            password: this.config.password
+            password: this.config.password,
+            ssl: { rejectUnauthorized: false } //
         })
         await database.connect()
         const roomModel = new RoomModel(database)

@@ -13,6 +13,7 @@ export interface DatabaseConfig {
     database: string;
     user: string;
     password: string;
+    ssl?: any;
 }
 
 class PostgresDatabase implements IDatabase {
