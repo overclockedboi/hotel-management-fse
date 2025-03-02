@@ -25,6 +25,7 @@ export class AppComponent {
 
 
   setBooked(event: any) {
+    this.loading = true;
     if (event >= 0 && event < 6 && this.available >= event) {
 
       this.tobeBooked = event;
@@ -32,13 +33,13 @@ export class AppComponent {
   }
 
   bookRoom() {
-    this.loading = false;
+    this.loading = true;
     this.bookingService.createBooking({ numberOfRooms: this.tobeBooked }).subscribe({
       next: (booking: any) => {
         this.booking.push(booking)
         this.tobeBooked = 0;
         this.refresh();
-        this.loading = true;
+        this.loading = false;
       },
       error: (error: any) => {
         console.log(error)
@@ -79,10 +80,10 @@ export class AppComponent {
     })
   }
   random() {
-    this.loading = false;
+    this.loading = true;
     this.bookingService.random().subscribe({
       next: () => {
-        this.loading = true;
+        this.loading = false;
         this.refresh()
       },
       error: (error: any) => {
