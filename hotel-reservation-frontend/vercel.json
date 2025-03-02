@@ -11,15 +11,42 @@
     ],
     "routes": [
         {
-            "src": "/(.*)\\.js",
+            "src": "/(.*)\\.js$",
             "headers": {
-                "Content-Type": "application/javascript"
+                "Content-Type": "application/javascript",
+                "X-Content-Type-Options": "nosniff"
             },
             "dest": "/dist/hotel-reservation/browser/$1.js"
         },
         {
+            "src": "/(.*)\\.(css|json|xml|txt|svg|ico|jpg|jpeg|png|gif|woff|woff2|otf|ttf|eot)$",
+            "dest": "/dist/hotel-reservation/browser/$1.$2"
+        },
+        {
             "src": "/(.*)",
+            "headers": {
+                "Permissions-Policy": "interest-cohort=()"
+            },
             "dest": "/index.html"
+        }
+    ],
+    "headers": [
+        {
+            "source": "/(.*)",
+            "headers": [
+                {
+                    "key": "X-Content-Type-Options",
+                    "value": "nosniff"
+                },
+                {
+                    "key": "X-Frame-Options",
+                    "value": "DENY"
+                },
+                {
+                    "key": "X-XSS-Protection",
+                    "value": "1; mode=block"
+                }
+            ]
         }
     ]
 }
