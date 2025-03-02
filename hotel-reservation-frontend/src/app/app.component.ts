@@ -25,7 +25,7 @@ export class AppComponent {
 
 
   setBooked(event: any) {
-    this.loading = true;
+
     if (event >= 0 && event < 6 && this.available >= event) {
 
       this.tobeBooked = event;
@@ -48,6 +48,7 @@ export class AppComponent {
 
   }
   refresh() {
+    this.loading = true;
     this.bookingService.getRooms().subscribe({
       next: (rooms: any) => {
         this.rooms = rooms['data']
